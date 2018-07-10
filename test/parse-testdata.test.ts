@@ -100,6 +100,17 @@ test('checking parseItem.', async () => {
 // let parsedemail;
 // let expected;
 
+async function getData(testdata,expectedresult){
+  let email = await fse.readFile(inputDir + '/' + testdata) //contains email in form of buffer
+  let parsedemail = await parseItem(email) // contains parsed email in form of RECORD json
+  let expected = await fse.readJson(resultDir + '/' + expectedresult) //contains expected json
+  expected.time_extracted = parsedemail.time_extracted.toISOString()
+
+  parsedemail = JSON.parse(JSON.stringify(parsedemail));
+  expected = JSON.parse(JSON.stringify(expected));
+  
+  return [parsedemail,expected];
+}
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 //test.eml////////////with/////////////test.json//////////////////////////////////////////////////////
 test('testing parse mime', async () => {
@@ -109,15 +120,10 @@ test('testing parse mime', async () => {
 
   
   console.log('testing ' +testdata+ ' with ' +expectedresult);
-  let email = await fse.readFile(inputDir + '/' + testdata) //contains email in form of buffer
-  let parsedemail = await parseItem(email) // contains parsed email in form of RECORD json
-  let expected = await fse.readJson(resultDir + '/' + expectedresult) //contains expected json
-  expected.time_extracted = parsedemail.time_extracted.toISOString()
 
-  parsedemail = JSON.parse(JSON.stringify(parsedemail));
-  expected = JSON.parse(JSON.stringify(expected));
+  let testObj = await getData(testdata,expectedresult);
 
-  expect(parsedemail).toMatchObject(expected);
+  expect(testObj[0]).toMatchObject(testObj[1]);
 });
 
 
@@ -130,15 +136,10 @@ test('testing parse mime', async () => {
 
   
   console.log('testing ' +testdata+ ' with ' +expectedresult);
-  let email = await fse.readFile(inputDir + '/' + testdata) //contains email in form of buffer
-  let parsedemail = await parseItem(email) // contains parsed email in form of RECORD json
-  let expected = await fse.readJson(resultDir + '/' + expectedresult) //contains expected json
-  expected.time_extracted = parsedemail.time_extracted.toISOString()
+  let testObj = await getData(testdata,expectedresult);
 
-  parsedemail = JSON.parse(JSON.stringify(parsedemail));
-  expected = JSON.parse(JSON.stringify(expected));
+  expect(testObj[0]).toMatchObject(testObj[1]);
 
-  expect(parsedemail).toMatchObject(expected);
 });
 
 
@@ -151,15 +152,9 @@ test('testing parse mime', async () => {
 
   
   console.log('testing ' +testdata+ ' with ' +expectedresult);
-  let email = await fse.readFile(inputDir + '/' + testdata) //contains email in form of buffer
-  let parsedemail = await parseItem(email) // contains parsed email in form of RECORD json
-  let expected = await fse.readJson(resultDir + '/' + expectedresult) //contains expected json
-  expected.time_extracted = parsedemail.time_extracted.toISOString()
+ let testObj = await getData(testdata,expectedresult);
 
-  parsedemail = JSON.parse(JSON.stringify(parsedemail));
-  expected = JSON.parse(JSON.stringify(expected));
-
-  expect(parsedemail).toMatchObject(expected);
+  expect(testObj[0]).toMatchObject(testObj[1]);
 });
 
 
@@ -172,13 +167,7 @@ test('testing parse mime', async () => {
 
   
   console.log('testing ' +testdata+ ' with ' +expectedresult);
-  let email = await fse.readFile(inputDir + '/' + testdata) //contains email in form of buffer
-  let parsedemail = await parseItem(email) // contains parsed email in form of RECORD json
-  let expected = await fse.readJson(resultDir + '/' + expectedresult) //contains expected json
-  expected.time_extracted = parsedemail.time_extracted.toISOString()
+  let testObj = await getData(testdata,expectedresult);
 
-  parsedemail = JSON.parse(JSON.stringify(parsedemail));
-  expected = JSON.parse(JSON.stringify(expected));
-
-  expect(parsedemail).toMatchObject(expected);
+  expect(testObj[0]).toMatchObject(testObj[1]);
 });
