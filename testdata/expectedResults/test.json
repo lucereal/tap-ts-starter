@@ -1,5 +1,5 @@
 {
-	"type": "RECORD",
+	"type": "RECRD",
 	"stream": "email",
 	"time_extracted": "2018-06-11T19:07:33.971Z",
 	"record": {
